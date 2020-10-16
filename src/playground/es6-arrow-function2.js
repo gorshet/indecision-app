@@ -19,4 +19,6 @@ const user = {
    console.log(user.printPlacesLived());
 
 
+
+
    
