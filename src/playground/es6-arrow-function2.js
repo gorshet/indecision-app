@@ -13,12 +13,7 @@ const user = {
     name: "Jorge",
     cities: ['Caracas', 'Madrid', 'Miami'],
     printPlacesLived() {
-    const that = this;
-    
-
-    this.cities.forEach((city) =>{
-    console.log(that.name + ' ' + 'has lived in' + ' ' + city )
-   });
-    }
+    return this.cities.map((city) => this.name + " " + 'has lived in' + " " + city);
+}
 };
-user.printPlacesLived();
+   console.log(user.printPlacesLived());
