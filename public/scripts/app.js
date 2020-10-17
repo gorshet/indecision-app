@@ -23,3 +23,19 @@ var user = {
     }
 };
 console.log(user.printPlacesLived());
+
+// Challenge area
+
+var multiplier = {
+    nums: [2, 4, 6, 8, 10],
+    multiplyBy: 2,
+    multiply: function multiply() {
+        var _this2 = this;
+
+        return this.nums.map(function (number) {
+            return number * _this2.multiplyBy;
+        });
+    }
+};
+
+console.log(multiplier.multiply());
