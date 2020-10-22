@@ -1,39 +1,30 @@
-'use strict';
+"use strict";
 
-var appRoot = document.getElementById('app');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var visibility = false;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var showDetails = function showDetails() {
-    visibility = !visibility;
-    render();
-};
+var Person = function () {
+    function Person() {
+        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Anonymous";
 
-var render = function render() {
-    var visible = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            'Visibility Toggle'
-        ),
-        React.createElement(
-            'button',
-            { onClick: showDetails },
-            visibility ? 'Hide details' : 'Show details'
-        ),
-        visibility && React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'p',
-                null,
-                'If you are seeing this, you are on the right track!!!'
-            )
-        )
-    );
-    ReactDOM.render(visible, appRoot);
-};
+        _classCallCheck(this, Person);
 
-render();
+        this.name = name;
+    }
+
+    _createClass(Person, [{
+        key: "etGretting",
+        value: function etGretting() {
+            return "Hi, i am " + this.name;
+        }
+    }]);
+
+    return Person;
+}();
+
+var me = new Person('Jorge Montes');
+console.log(me.etGretting());
+
+var other = new Person();
+console.log(other.etGretting());
