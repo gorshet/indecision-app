@@ -2,6 +2,8 @@ class Indecision extends React.Component{
     constructor(props){
         super(props);
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+        this.handlePick = this.handlePick.bind(this);
+        this.handleAddOption = this.handleAddOption.bind(this);
         this.state = {
             options: ['Thing one', 'Thing two', 'Thing three']
         };
@@ -15,7 +17,17 @@ class Indecision extends React.Component{
     }
 
     handlePick(){
-        alert ('Test');
+                const randomNumber = Math.floor(Math.random() * this.state.options.length);
+                const option = this.state.options[randomNumber];
+                alert(option);
+    };
+    
+    handleAddOption(option){
+        this.setState((prevState) =>{
+            return{
+                options: prevState.options.concat(option)
+            }
+        });
     };
     
     render(){
@@ -28,13 +40,16 @@ class Indecision extends React.Component{
             <div>
              <Header title={title} subtitle={subtitle}/>
              <Actions 
-             hasOptions={this.state.options.length > 0}          
+              hasOptions={this.state.options.length > 0} 
+              handlePick={this.handlePick}         
              />
              <Options
               options={this.state.options}
               handleDeleteOptions={this.handleDeleteOptions}
               />
-             <AddOptions />
+             <AddOptions
+             handleAddOption={this.handleAddOption}
+             />
              </div>
         );
     }
@@ -52,14 +67,11 @@ class Header extends React.Component{
 }
 
 class Actions extends React.Component{
-    handlePick(){
-        alert('handlePick');
-    }
     render(){
         return(
             <div>
             <button 
-             onClick={this.handlePick}
+             onClick={this.props.handlePick}
              disabled={!this.props.hasOptions}
              >
              What should i do?
@@ -96,11 +108,15 @@ class Option extends React.Component{
 }
 
 class AddOptions extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleAddOption = this.handleAddOption.bind(this);
+    }
     handleAddOption(e){
         e.preventDefault();
     const option = e.target.elements.option.value.trim();
     if(option){
-        alert(option);
+        this.props.handleAddOption(option);
     }
     }
     render(){

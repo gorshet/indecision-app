@@ -17,6 +17,8 @@ var Indecision = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Indecision.__proto__ || Object.getPrototypeOf(Indecision)).call(this, props));
 
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handlePick = _this.handlePick.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.state = {
             options: ['Thing one', 'Thing two', 'Thing three']
         };
@@ -35,7 +37,18 @@ var Indecision = function (_React$Component) {
     }, {
         key: 'handlePick',
         value: function handlePick() {
-            alert('Test');
+            var randomNumber = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[randomNumber];
+            alert(option);
+        }
+    }, {
+        key: 'handleAddOption',
+        value: function handleAddOption(option) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
         }
     }, {
         key: 'render',
@@ -49,13 +62,16 @@ var Indecision = function (_React$Component) {
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Actions, {
-                    hasOptions: this.state.options.length > 0
+                    hasOptions: this.state.options.length > 0,
+                    handlePick: this.handlePick
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
                     handleDeleteOptions: this.handleDeleteOptions
                 }),
-                React.createElement(AddOptions, null)
+                React.createElement(AddOptions, {
+                    handleAddOption: this.handleAddOption
+                })
             );
         }
     }]);
@@ -105,11 +121,6 @@ var Actions = function (_React$Component3) {
     }
 
     _createClass(Actions, [{
-        key: 'handlePick',
-        value: function handlePick() {
-            alert('handlePick');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -118,7 +129,7 @@ var Actions = function (_React$Component3) {
                 React.createElement(
                     'button',
                     {
-                        onClick: this.handlePick,
+                        onClick: this.props.handlePick,
                         disabled: !this.props.hasOptions
                     },
                     'What should i do?'
@@ -187,10 +198,13 @@ var Option = function (_React$Component5) {
 var AddOptions = function (_React$Component6) {
     _inherits(AddOptions, _React$Component6);
 
-    function AddOptions() {
+    function AddOptions(props) {
         _classCallCheck(this, AddOptions);
 
-        return _possibleConstructorReturn(this, (AddOptions.__proto__ || Object.getPrototypeOf(AddOptions)).apply(this, arguments));
+        var _this6 = _possibleConstructorReturn(this, (AddOptions.__proto__ || Object.getPrototypeOf(AddOptions)).call(this, props));
+
+        _this6.handleAddOption = _this6.handleAddOption.bind(_this6);
+        return _this6;
     }
 
     _createClass(AddOptions, [{
@@ -199,7 +213,7 @@ var AddOptions = function (_React$Component6) {
             e.preventDefault();
             var option = e.target.elements.option.value.trim();
             if (option) {
-                alert(option);
+                this.props.handleAddOption(option);
             }
         }
     }, {
