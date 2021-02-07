@@ -19,7 +19,7 @@ var Indecision = function (_React$Component) {
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
-        _this.handleDeleteOption = _this.handleDeleteOptions.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.state = {
             options: props.options
         };
@@ -35,8 +35,14 @@ var Indecision = function (_React$Component) {
         }
     }, {
         key: 'handleDeleteOption',
-        value: function handleDeleteOption(option) {
-            console.log('HDO', option);
+        value: function handleDeleteOption(optionToRemove) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (option) {
+                        return optionToRemove !== option;
+                    })
+                };
+            });
         }
     }, {
         key: 'handlePick',
@@ -138,9 +144,11 @@ var Options = function Options(props) {
             'Remove All'
         ),
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option,
-                handleDeleteOption: props.handleDeleteOption,
-                optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteOption: props.handleDeleteOption
+            });
         })
     );
 };
@@ -152,10 +160,12 @@ var Option = function Option(props) {
         props.optionText,
         React.createElement(
             'button',
-            { onClick: function onClick(e) {
+            {
+                onClick: function onClick(e) {
                     props.handleDeleteOption(props.optionText);
-                } },
-            'Remove Option'
+                }
+            },
+            'Remove'
         )
     );
 };
@@ -214,13 +224,5 @@ var AddOptions = function (_React$Component2) {
 
     return AddOptions;
 }(React.Component);
-
-/*const User = (props) => {
-    <div>
-    <p>Name:{props.Name}</p>
-    <p>Age:{props.age}</p>
-    </div>
-}
-*/
 
 ReactDOM.render(React.createElement(Indecision, null), document.getElementById('app'));

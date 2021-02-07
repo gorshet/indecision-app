@@ -4,7 +4,7 @@ class Indecision extends React.Component{
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOptions.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.state = {
             options: props.options
         };
@@ -13,9 +13,13 @@ class Indecision extends React.Component{
         this.setState(()=>({options:[]}));
     };
 
-    handleDeleteOption(option){
-        console.log('HDO', option);
-    }
+    handleDeleteOption(optionToRemove){
+        this.setState((prevState) =>({
+         options: prevState.options.filter((option) => {
+            return optionToRemove !== option;
+         }) 
+        }));
+    };
 
     handlePick(){
                 const randomNumber = Math.floor(Math.random() * this.state.options.length);
@@ -97,9 +101,11 @@ const Options = (props) => {
            </button>
           {
             props.options.map((option) => (
-            <Option key={option}
+            <Option 
+            key={option}
+            optionText={option} 
             handleDeleteOption = {props.handleDeleteOption}
-            optionText={option} />
+            />
             ))
           }
         </div>
@@ -110,14 +116,16 @@ const Option = (props) => {
         return(
            <div>
            {props.optionText}
-           <button onClick={(e)=>{
-                props.handleDeleteOption(props.optionText);
-           }}>
-           Remove Option
+           <button 
+           onClick={(e)=>{
+            props.handleDeleteOption(props.optionText)
+           }}
+           >
+           Remove 
            </button>
            </div>
     );
-}
+};
 
 
 class AddOptions extends React.Component{
@@ -150,14 +158,6 @@ class AddOptions extends React.Component{
     }
 }
 
-
-/*const User = (props) => {
-    <div>
-    <p>Name:{props.Name}</p>
-    <p>Age:{props.age}</p>
-    </div>
-}
-*/
 
 ReactDOM.render(<Indecision/>, document.getElementById('app'));
 
