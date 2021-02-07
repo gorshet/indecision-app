@@ -27,6 +27,21 @@ var Indecision = function (_React$Component) {
     }
 
     _createClass(Indecision, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('Fetching data');
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            console.log('Saving data');
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('ComponentWillUnmount');
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
